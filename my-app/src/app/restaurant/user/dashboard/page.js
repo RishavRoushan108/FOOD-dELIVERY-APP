@@ -46,6 +46,15 @@ const UserDashboard = () => {
   return (
     <div className="w-full">
       <Banner citylist={citylist} loadhotellist={loadhotellist} />
+      {hotellist?.length == 0 ? (
+        <div className="text-center mt-10 text-gray-500 text-lg">
+          No restaurants found according to your preferences 😔
+        </div>
+      ) : (
+        <h1 className="text-center mt-2 text-xl font-semibold text-orange-500">
+          Click on these cards to explore food items 🍽️
+        </h1>
+      )}
       <div
         className="grid gap-6 p-6 
                   grid-cols-1 
