@@ -12,19 +12,32 @@ const Signup = () => {
   let [password, setpassword] = useState("");
   let [name, setname] = useState("");
   let [city, setcity] = useState("");
-  let [add, setadd] = useState("");
   const [role, setRole] = useState("customer");
   const route = useRouter();
 
   const signuphandle = async () => {
-    if (!emailId || !password) {
+    if (!emailId || !password || !city || !name) {
       toast.error("Please fill all fields");
       return;
     }
-    if (role === "hotelOwner" && !name) {
-      toast.error("Please fill all fields");
+
+    const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailId);
+    if (!isValidEmail) {
+      toast.error("Enter valid emailid");
       return;
     }
+    const isStrongPassword =
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password) &&
+      /[@$!%*?&]/.test(password);
+
+    if (!isStrongPassword) {
+      toast.error("Enter strong password");
+      return;
+    }
+
     try {
       let response;
       if (role === "hotelOwner") {
@@ -33,7 +46,7 @@ const Signup = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ emailId, password, name, city, add }),
+          body: JSON.stringify({ emailId, password, name, city }),
           credentials: "include",
         });
       } else {
@@ -42,7 +55,7 @@ const Signup = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ emailId, password, city, add }),
+          body: JSON.stringify({ emailId, password, name, city }),
           credentials: "include",
         });
       }
@@ -87,6 +100,15 @@ const Signup = () => {
             type={"text"}
             title={"Enter restaurant name"}
             placeholder={"eg: khana khazana"}
+            value={name}
+            onChange={(e) => setname(e.target.value)}
+          />
+        )}
+        {role === "customer" && (
+          <Input
+            type={"text"}
+            title={"Enter your name"}
+            placeholder={"eg: rishav"}
             value={name}
             onChange={(e) => setname(e.target.value)}
           />

@@ -62,14 +62,14 @@ const UserDashboard = () => {
               router.push("/restaurant/user/dashboard/" + item._id);
             }}
           >
-            <h2 className="text-xl font-semibold mb-2">{item.name}</h2>
+            <h2 className="text-xl font-semibold mb-2">{item?.name}</h2>
 
-            <p className="text-gray-600">📍 {item.city}</p>
+            <p className="text-gray-600">📍 {item?.city}</p>
 
             <p className="text-sm text-gray-400 mt-2">
-              Lat: {item.location.lat}
+              Lat: {item?.location?.lat}
             </p>
-            <p className="text-sm text-gray-400">Lon: {item.location.lon}</p>
+            <p className="text-sm text-gray-400">Lon: {item?.location?.lon}</p>
           </div>
         ))}
       </div>

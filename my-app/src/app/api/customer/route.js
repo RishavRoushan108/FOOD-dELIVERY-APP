@@ -25,7 +25,7 @@ export async function POST(request) {
   try {
     let payload = await request.json();
     await connectDB();
-    const { emailId, password, login } = payload;
+    const { emailId, password, name, city, login } = payload;
     let result;
     let success = false;
     if (login) {
