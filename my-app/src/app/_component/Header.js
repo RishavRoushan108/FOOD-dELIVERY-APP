@@ -55,8 +55,11 @@ const Header = () => {
             </li>
           </>
         )}
-        {pathname.startsWith("/restaurant/user/dashboard") && (
+        {pathname.startsWith("/restaurant/user") && (
           <>
+            <li>
+              <Link href="/restaurant/user/setlocation">Setlocation</Link>
+            </li>
             <li>
               <Link href="/restaurant/user/cart">
                 cart{cartlist?.length > 0 ? "(" + cartlist?.length + ")" : null}

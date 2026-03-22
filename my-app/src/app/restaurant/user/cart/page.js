@@ -5,9 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 const page = () => {
   const { cartlist, setcartlist } = useContext(cartContext);
-  console.log(cartlist);
+  const removefromcart = (item) => {
+    setcartlist((prev) => prev.filter((element) => element._id !== item._id));
+  };
   return (
-    <div className="w-full mt-5">
+    <div className="w-full flex justify-center">
       {cartlist?.length == 0 ? (
         <div className="bg-white shadow-lg rounded-2xl p-8 text-center max-w-md w-full mt-10">
           <img
@@ -28,14 +30,14 @@ const page = () => {
           </Link>
         </div>
       ) : (
-        <div>
+        <div className="w-full">
           {cartlist.map((item) => (
             <div
               key={item._id}
               className="flex flex-col w-[80%] ml-[10%] md:flex-row items-center
                                justify-between gap-6
                                p-4 border rounded-lg shadow-sm
-                               hover:shadow-md transition"
+                               hover:shadow-md transition mt-2"
             >
               <div className="relative shrink-0 w-full h-50 md:w-32 md:h-32">
                 <Image
@@ -63,7 +65,7 @@ const page = () => {
                 className="bg-red-400 hover:bg-red-500 
                              text-white px-4 py-2 
                              rounded-md transition"
-                // onClick={() => removefromcart(item)}
+                onClick={() => removefromcart(item)}
               >
                 Remove
               </button>
