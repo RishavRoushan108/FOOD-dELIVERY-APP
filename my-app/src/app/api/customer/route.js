@@ -10,17 +10,6 @@ const connectDB = async () => {
   await mongoose.connect(MONGO_URL);
 };
 
-// export async function GET() {
-//   try {
-//     const decoded = await getAuthUser();
-//     await connectDB();
-//     const data = await restaurantModel.find({ emailId: decoded.emailId });
-//     return NextResponse.json({ result: data });
-//   } catch (err) {
-//     return NextResponse.json({ success: false });
-//   }
-// }
-
 export async function POST(request) {
   try {
     let payload = await request.json();

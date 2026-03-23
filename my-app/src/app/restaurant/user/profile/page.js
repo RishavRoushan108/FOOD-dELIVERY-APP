@@ -1,7 +1,50 @@
-import React from "react";
+"use client";
 
-const page = () => {
-  return <div>profile</div>;
+import { useState, useEffect } from "react";
+
+const Profile = () => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const response = localStorage.getItem("restaurantUser");
+
+    if (response) {
+      const value = JSON.parse(response);
+      setData(value);
+    }
+  }, []);
+  return (
+    <div className="w-full flex items-center justify-center bg-gray-100">
+      <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
+        <h2 className="text-2xl font-semibold text-center mb-6 text-orange-500">
+          Profile
+        </h2>
+
+        <div className="space-y-4">
+          <div>
+            <p className="text-sm text-gray-500">Name</p>
+            <p className="text-lg font-medium">{data?.name}</p>
+          </div>
+
+          <div>
+            <p className="text-sm text-gray-500">Email</p>
+            <p className="text-lg font-medium">{data?.emailId}</p>
+          </div>
+
+          <div>
+            <p className="text-sm text-gray-500">Address</p>
+            <p className="text-lg font-medium">{data?.city}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Location 📍</p>
+            <p className="text-lg font-medium">
+              Lat: {data?.location?.lat} Lon: {data?.location?.lon}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default page;
+export default Profile;
