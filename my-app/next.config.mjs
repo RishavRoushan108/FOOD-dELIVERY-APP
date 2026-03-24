@@ -3,7 +3,7 @@ const nextConfig = {
   reactCompiler: true,
 
   images: {
-    domains: ["encrypted-tbn0.gstatic.com"],
+    domains: ["encrypted-tbn0.gstatic.com", "www.shutterstock.com"],
   },
 };
 

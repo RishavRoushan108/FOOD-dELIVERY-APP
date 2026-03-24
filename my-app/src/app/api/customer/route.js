@@ -2,13 +2,26 @@ import userModel from "@/app/lib/userModel";
 import mongoose from "mongoose";
 const { NextResponse } = require("next/server");
 import jwt from "jsonwebtoken";
-// import { getAuthUser } from "@/app/function/backendmiddleware";
+import { getAuthUser } from "@/app/function/backendmiddleware";
 const { MONGO_URL } = process.env;
 import bcrypt from "bcrypt";
 
 const connectDB = async () => {
   await mongoose.connect(MONGO_URL);
 };
+
+export async function GET() {
+  try {
+    const decoded = await getAuthUser();
+    await connectDB();
+    const data = await userModel
+      .findOne({ emailId: decoded.emailId })
+      .select("-password");
+    return NextResponse.json({ result: data });
+  } catch (err) {
+    return NextResponse.json({ success: false });
+  }
+}
 
 export async function POST(request) {
   try {

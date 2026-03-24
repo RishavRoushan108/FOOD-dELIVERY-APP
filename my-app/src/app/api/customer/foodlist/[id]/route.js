@@ -12,7 +12,7 @@ export async function GET(request, { params }) {
   try {
     const { id } = await params;
     await connectDB();
-    const hoteldetail = await restaurantModel.findById(id);
+    const hoteldetail = await restaurantModel.findById(id).select("-password");
     if (hoteldetail) {
       let foodlist = [];
       foodlist = await fooditemModel.find({ restro_id: id });

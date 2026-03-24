@@ -6,12 +6,19 @@ const Profile = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const response = localStorage.getItem("restaurantUser");
+    const fetchData = async () => {
+      try {
+        let res = await fetch("http://localhost:3000/api/customer", {
+          withCredentials: true,
+        });
+        res = await res.json();
+        setData(res.result);
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
-    if (response) {
-      const value = JSON.parse(response);
-      setData(value);
-    }
+    fetchData();
   }, []);
   return (
     <div className="w-full flex items-center justify-center bg-gray-100">
