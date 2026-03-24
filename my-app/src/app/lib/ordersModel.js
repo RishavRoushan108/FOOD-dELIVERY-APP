@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
-import { stringify } from "postcss";
 
-const ordersSchema = await mongoose.Schema(
+const ordersSchema = mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, required: true },
-    restro_id: { type: mongoose.Schema.Types.ObjectId },
+    restro_id: { type: mongoose.Schema.Types.ObjectId, required: true },
     status: {
-      type: stringify,
+      type: String,
       required: true,
       default: "Order Confirmed",
     },
@@ -22,6 +21,6 @@ const ordersSchema = await mongoose.Schema(
 );
 
 const ordersModel =
-  mongoose.models.orders || mongoose.model("orders", ordersSchema);
+  mongoose.models.order || mongoose.model("order", ordersSchema);
 
 export default ordersModel;
