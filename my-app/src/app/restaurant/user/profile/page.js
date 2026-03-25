@@ -21,7 +21,7 @@ const Profile = () => {
     fetchData();
   }, []);
   return (
-    <div className="w-full flex items-center justify-center bg-gray-100">
+    <div className="w-full flex items-center justify-center ">
       <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-6 text-orange-500">
           Profile

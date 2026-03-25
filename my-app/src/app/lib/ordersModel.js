@@ -16,6 +16,7 @@ const ordersSchema = mongoose.Schema(
       type: String,
       required: true,
       default: "Order Confirmed",
+      enum: ["Pending", "Confirmed", "Delivered", "Cancelled"],
     },
     food_id: [
       {

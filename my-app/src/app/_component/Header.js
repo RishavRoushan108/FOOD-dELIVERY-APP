@@ -66,6 +66,9 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link href="/restaurant/user/orders">Orders</Link>
+            </li>
+            <li>
               <Link href="/restaurant/user/profile">Profile</Link>
             </li>
             <li>

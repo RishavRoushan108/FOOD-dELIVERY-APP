@@ -5,12 +5,14 @@ import Link from "next/link";
 import Image from "next/image";
 import getDistance from "@/app/function/caldist";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   const { cartlist, setcartlist } = useContext(cartContext);
   const [po, setpo] = useState(false);
   const [data, setData] = useState(null);
   const [restrodetail, setrestrodetail] = useState();
+  const router = useRouter();
   const distance = getDistance(
     data?.location?.lat,
     data?.location?.lon,
@@ -74,6 +76,7 @@ const page = () => {
         credentials: "include",
       });
       res = await res.json();
+      router.push("/restaurant/user/orders");
       setcartlist([]);
       toast.success("order placed successfully");
     } catch (err) {

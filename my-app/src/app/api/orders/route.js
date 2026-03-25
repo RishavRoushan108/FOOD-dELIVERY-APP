@@ -44,21 +44,21 @@ export async function GET() {
     // if customer
     let user = await userModel.findOne({ emailId: decoded.emailId });
     // if restroowner
-    if (!user) {
-      user = await restaurantModel.findOne({ emailId: decoded.emailId });
-    }
+    // if (!user) {
+    //   user = await restaurantModel.findOne({ emailId: decoded.emailId });
+    // }
     if (user) {
       const orderlist = await ordersModel
         .find({ userId: user._id })
         .populate({
-          path: "user",
+          path: "userId",
           select: "-password",
         })
         .populate({
-          path: "restroOwner",
+          path: "restro_id",
           select: "-password",
         })
-        .populate("foodItem");
+        .populate("food_id");
       return NextResponse.json({ success: true, orderlist });
     }
     throw new Error("your orderlist donot exist");
