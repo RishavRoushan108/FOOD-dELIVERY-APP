@@ -4,6 +4,7 @@ import { cartContext } from "@/app/context/cartcontext";
 import Link from "next/link";
 import Image from "next/image";
 import getDistance from "@/app/function/caldist";
+import toast from "react-hot-toast";
 
 const page = () => {
   const { cartlist, setcartlist } = useContext(cartContext);
@@ -28,6 +29,7 @@ const page = () => {
 
   if (cartlist.length > 0) {
     totalfoodcost = cartlist.reduce((sum, item) => sum + item.price, 0);
+    totalfoodcost = Number(totalfoodcost);
   }
 
   const distancecost = Number((30 + distance * 7).toFixed(2));
@@ -52,6 +54,32 @@ const page = () => {
   }, [cartlist]);
   const removefromcart = (item) => {
     setcartlist((prev) => prev.filter((element) => element._id !== item._id));
+  };
+  const proccedorder = async () => {
+    try {
+      const payload = {
+        userId: data._id,
+        restro_id: restrodetail._id,
+        food_id: cartlist.map((item) => item._id),
+        price: {
+          totalfoodcost,
+          distancecost,
+          tax,
+          total,
+        },
+      };
+      let res = await fetch("http://localhost:3000/api/orders", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        credentials: "include",
+      });
+      res = await res.json();
+      setcartlist([]);
+      toast.success("order placed successfully");
+    } catch (err) {
+      toast.error("order procced failed");
+      console.log(err);
+    }
   };
   return (
     <div className="w-full flex justify-center">
@@ -125,7 +153,7 @@ const page = () => {
               }}
               className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-300 ease-in-out"
             >
-              Proceed to Complete Order
+              Proceed to See Billing
             </button>
           </div>
           <div>
@@ -196,9 +224,12 @@ const page = () => {
                     <span>₹{total}</span>
                   </div>
                 </div>
-                <div className="mt-6 mb-10 flex justify-center">
+                <div
+                  onClick={proccedorder}
+                  className="mt-6 mb-10 flex justify-center"
+                >
                   <button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-300 ease-in-out">
-                    Proceed to pay
+                    Proceed to Order
                   </button>
                 </div>
               </div>
