@@ -20,24 +20,23 @@ const Header = () => {
   return (
     <div className="h-30 bg-[#4CB572] flex items-center justify-between text-white">
       <Image
-        src={logo}
+        src={"/logo.png"}
         alt="A description of the image"
-        width={120}
-        height={40}
+        width={250}
+        height={300}
         // width and height are automatically inferred
+        className="pl-2 rounded-[10%]"
       />
       <ul className="flex flex-row mr-20 gap-10">
-        <li>
-          <Link href="/">Home</Link>
-        </li>
-        {pathname === "/restaurant" && (
-          <>
-            <li>
-              <Link href="/restaurant">signin/signup</Link>
-            </li>
-          </>
-        )}
-        {pathname.startsWith("/restaurant/hotel/dashboard") && (
+        {pathname === "/restaurant/hotel" ||
+          (pathname === "/restaurant/user" && (
+            <>
+              <li>
+                <Link href="/restaurant">signin/signup</Link>
+              </li>
+            </>
+          ))}
+        {pathname.startsWith("/restaurant/hotel") && (
           <>
             <li>
               <Link href="/restaurant/hotel/dashboard">Dashboard</Link>
@@ -48,7 +47,7 @@ const Header = () => {
               </Link>
             </li>
             <li>
-              <Link href="/restaurant/profile">Profile</Link>
+              <Link href="/restaurant/hotel/dashboard/profile">Profile</Link>
             </li>
             <li>
               <button onClick={handleLogout}>Logout</button>

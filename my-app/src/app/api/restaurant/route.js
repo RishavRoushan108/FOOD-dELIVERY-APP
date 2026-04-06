@@ -14,7 +14,9 @@ export async function GET() {
   try {
     const decoded = await getAuthUser();
     await connectDB();
-    const data = await restaurantModel.find({ emailId: decoded.emailId });
+    const data = await restaurantModel
+      .find({ emailId: decoded.emailId })
+      .select("-password");
     return NextResponse.json({ result: data });
   } catch (err) {
     return NextResponse.json({ success: false });
