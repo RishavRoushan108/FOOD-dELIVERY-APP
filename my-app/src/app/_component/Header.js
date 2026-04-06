@@ -7,13 +7,29 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { cartContext } from "../context/cartcontext";
+import toast from "react-hot-toast";
 
 const Header = () => {
   const pathname = usePathname();
   const route = useRouter();
-  const handleLogout = () => {
-    localStorage.removeItem("restaurantUser");
-    route.push("/restaurant");
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+      console.log(res);
+      toast.success("logout successful");
+    } catch (err) {
+      toast.error("logout failed");
+      console.log(err);
+    } finally {
+      localStorage.removeItem("restaurantUser");
+      route.push("/restaurant");
+    }
   };
   const { cartlist, setcartlist } = useContext(cartContext);
 
@@ -28,14 +44,6 @@ const Header = () => {
         className="pl-2 rounded-[10%]"
       />
       <ul className="flex flex-row mr-20 gap-10">
-        {pathname === "/restaurant/hotel" ||
-          (pathname === "/restaurant/user" && (
-            <>
-              <li>
-                <Link href="/restaurant">signin/signup</Link>
-              </li>
-            </>
-          ))}
         {pathname.startsWith("/restaurant/hotel") && (
           <>
             <li>

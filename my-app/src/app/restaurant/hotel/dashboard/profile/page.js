@@ -12,7 +12,6 @@ const Profile = () => {
           withCredentials: true,
         });
         res = await res.json();
-        console.log(res.result[0]);
         setData(res.result[0]);
       } catch (err) {
         console.error(err);

@@ -20,7 +20,7 @@ export async function POST(request) {
     if (user && user._id == payload.userId) {
       // create new order
       const res = new ordersModel(payload);
-      const result = await res.save();
+      await res.save();
       return NextResponse.json({
         success: true,
         message: "order placed successfully",

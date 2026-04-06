@@ -1,5 +1,4 @@
 import FoodCard from "./FoodCard";
-import image from "../../../public/next.svg";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 const Displayfooditem = () => {
@@ -47,7 +46,7 @@ const Displayfooditem = () => {
           <FoodCard
             key={item._id}
             id={item._id}
-            image={image}
+            image={item.path}
             fooditem={item.foodItem}
             description={item.description}
             price={item.price}

@@ -87,7 +87,7 @@ const page = ({ params }) => {
             >
               <div className="relative shrink-0 w-full h-50 md:w-32 md:h-32">
                 <Image
-                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0kw5tuHP2IBnFx4P1q14rLhdHUk1jO7bhoA&s"
+                  src={item?.path}
                   alt={item.foodItem}
                   fill
                   className="object-cover rounded-md"

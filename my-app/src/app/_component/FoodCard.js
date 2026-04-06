@@ -20,7 +20,7 @@ export const FoodCard = ({
           className="object-cover rounded-t-lg"
         />
       </div>
-      <div>
+      <div className="pl-2">
         <h1 className="text-lg font-semibold truncate">{fooditem} </h1>
         <p className="text-sm text-gray-500 line-clamp-2">{description}</p>
         <span className="text-green-600 font-bold">₹{price}</span>
