@@ -60,9 +60,6 @@ const Header = () => {
             <li>
               <Link href="/restaurant/hotel/dashboard/profile">Profile</Link>
             </li>
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
           </>
         )}
         {pathname.startsWith("/restaurant/user") && (
@@ -84,6 +81,10 @@ const Header = () => {
             <li>
               <Link href="/restaurant/user/profile">Profile</Link>
             </li>
+          </>
+        )}
+        {pathname != "/restaurant" && (
+          <>
             <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
