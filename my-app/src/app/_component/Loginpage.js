@@ -27,8 +27,17 @@ const Login = () => {
           body: JSON.stringify({ emailId, password, login: true }),
           credentials: "include",
         });
-      } else {
+      } else if (role == "customer") {
         response = await fetch("http://localhost:3000/api/customer", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ emailId, password, login: true }),
+          credentials: "include",
+        });
+      } else {
+        response = await fetch("http://localhost:3000/api/deliverypatner", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -47,7 +56,9 @@ const Login = () => {
         console.log("login successful");
         role === "hotelOwner"
           ? route.push("/restaurant/hotel/dashboard")
-          : route.push("/restaurant/user/dashboard");
+          : role == "customer"
+            ? route.push("/restaurant/user/dashboard")
+            : route.push("/restaurant/deliverypatner/dashboard");
       } else {
         alert("login failed");
       }
@@ -92,6 +103,14 @@ const Login = () => {
         `}
         >
           Hotel Owner
+        </button>
+        <button
+          onClick={() => setRole("deliveryPatner")}
+          className={`px-1 py-0.5 rounded border
+          ${role === "deliveryPatner" ? "bg-black text-white" : ""}
+        `}
+        >
+          delivery Patner
         </button>
       </div>
       <div className="py-4">

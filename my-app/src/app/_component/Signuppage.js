@@ -13,10 +13,21 @@ const Signup = () => {
   let [name, setname] = useState("");
   let [city, setcity] = useState("");
   const [role, setRole] = useState("customer");
+  const [phoneNumber, setphoneNumber] = useState("");
   const route = useRouter();
 
   const signuphandle = async () => {
-    if (!emailId || !password || !city || !name) {
+    if (!emailId || !password || !name) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    if (role == "deliverypatner" && !phoneNumber) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    if (role != "deliverypatner" && !city) {
       toast.error("Please fill all fields");
       return;
     }
@@ -49,13 +60,22 @@ const Signup = () => {
           body: JSON.stringify({ emailId, password, name, city }),
           credentials: "include",
         });
-      } else {
+      } else if (role === "customer") {
         response = await fetch("http://localhost:3000/api/customer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ emailId, password, name, city }),
+          credentials: "include",
+        });
+      } else {
+        response = await fetch("http://localhost:3000/api/deliverypatner", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ emailId, password, name, phoneNumber }),
           credentials: "include",
         });
       }
@@ -68,7 +88,9 @@ const Signup = () => {
         console.log("Signup successful");
         role === "hotelOwner"
           ? route.push("/restaurant/hotel/dashboard")
-          : route.push("/restaurant/user/dashboard");
+          : role == "customer"
+            ? route.push("/restaurant/user/dashboard")
+            : route.push("/restaurant/deliverypatner/dashboard");
       } else {
         alert("signup failed");
       }
@@ -104,7 +126,7 @@ const Signup = () => {
             onChange={(e) => setname(e.target.value)}
           />
         )}
-        {role === "customer" && (
+        {(role === "customer" || role === "deliverypatner") && (
           <Input
             type={"text"}
             title={"Enter your name"}
@@ -113,13 +135,24 @@ const Signup = () => {
             onChange={(e) => setname(e.target.value)}
           />
         )}
-        <Input
-          type={"text"}
-          title={"Enter city"}
-          placeholder={"eg: patna"}
-          value={city}
-          onChange={(e) => setcity(e.target.value)}
-        />
+        {role != "deliverypatner" && (
+          <Input
+            type={"text"}
+            title={"Enter city"}
+            placeholder={"eg: patna"}
+            value={city}
+            onChange={(e) => setcity(e.target.value)}
+          />
+        )}
+        {role === "deliverypatner" && (
+          <Input
+            type={"number"}
+            title={"Enter phone no"}
+            placeholder={"eg: 840******"}
+            value={phoneNumber}
+            onChange={(e) => setphoneNumber(e.target.value)}
+          />
+        )}
       </div>
       <div className="flex gap-3 mt-3">
         <button
@@ -138,6 +171,14 @@ const Signup = () => {
         `}
         >
           Hotel Owner
+        </button>
+        <button
+          onClick={() => setRole("deliverypatner")}
+          className={`px-1 py-0.5 rounded border
+          ${role === "deliverypatner" ? "bg-black text-white" : ""}
+        `}
+        >
+          Delivery Patner
         </button>
       </div>
       <div className="py-8">
