@@ -76,9 +76,13 @@ const page = () => {
         credentials: "include",
       });
       res = await res.json();
-      router.push("/restaurant/user/orders");
-      setcartlist([]);
-      toast.success("order placed successfully");
+      if (res) {
+        router.push("/restaurant/user/orders");
+        setcartlist([]);
+        toast.success("order placed successfully");
+      } else {
+        throw new Error("something went wrong");
+      }
     } catch (err) {
       toast.error("order procced failed");
       console.log(err);

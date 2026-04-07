@@ -55,6 +55,9 @@ const Header = () => {
               </Link>
             </li>
             <li>
+              <Link href="/restaurant/hotel/dashboard/orders">Orders</Link>
+            </li>
+            <li>
               <Link href="/restaurant/hotel/dashboard/profile">Profile</Link>
             </li>
             <li>
@@ -64,6 +67,9 @@ const Header = () => {
         )}
         {pathname.startsWith("/restaurant/user") && (
           <>
+            <li>
+              <Link href="/restaurant/user/dashboard">Dashboard</Link>
+            </li>
             <li>
               <Link href="/restaurant/user/setlocation">Setlocation</Link>
             </li>

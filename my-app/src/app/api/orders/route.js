@@ -15,8 +15,8 @@ export async function POST(request) {
     if (!decoded) throw new Error("Unauthorized");
     await connectDB();
     const payload = await request.json();
-    console.log(payload);
     const user = await userModel.findOne({ emailId: decoded.emailId });
+    // if customer send the order request
     if (user && user._id == payload.userId) {
       // create new order
       const res = new ordersModel(payload);
@@ -31,7 +31,7 @@ export async function POST(request) {
     console.log(err);
     return NextResponse.json(
       { success: false, error: err.message },
-      { status: 500 },
+      { status: 400 },
     );
   }
 }
@@ -44,12 +44,12 @@ export async function GET() {
     // if customer
     let user = await userModel.findOne({ emailId: decoded.emailId });
     // if restroowner
-    // if (!user) {
-    //   user = await restaurantModel.findOne({ emailId: decoded.emailId });
-    // }
+    if (!user) {
+      user = await restaurantModel.findOne({ emailId: decoded.emailId });
+    }
     if (user) {
       const orderlist = await ordersModel
-        .find({ userId: user._id })
+        .find({ $or: [{ userId: user._id }, { restro_id: user._id }] })
         .populate({
           path: "userId",
           select: "-password",
@@ -67,6 +67,30 @@ export async function GET() {
     return NextResponse.json(
       { success: false, error: err.message },
       { status: 500 },
+    );
+  }
+}
+
+export async function PATCH(request) {
+  try {
+    const decoded = await getAuthUser();
+    if (!decoded) throw new Error("Unauthorized");
+    await connectDB();
+    const payload = await request.json();
+    const order = await ordersModel.findById(payload._id);
+    const user = await restaurantModel.findOne({ emailId: decoded.emailId });
+    if (order && order.restro_id.equals(user._id)) {
+      order.status = payload.status;
+      await order.save();
+      return NextResponse.json({ success: true });
+    } else {
+      throw new Error("something went wrong ");
+    }
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      { success: false, error: err.message },
+      { status: 400 },
     );
   }
 }
