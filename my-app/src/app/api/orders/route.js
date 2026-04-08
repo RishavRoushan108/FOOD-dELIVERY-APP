@@ -60,6 +60,10 @@ export async function GET() {
           path: "restro_id",
           select: "-password",
         })
+        .populate({
+          path: "deliverypatner_id",
+          select: "-password",
+        })
         .populate("food_id");
       return NextResponse.json({ success: true, orderlist });
     }
@@ -75,6 +79,10 @@ export async function GET() {
         })
         .populate({
           path: "restro_id",
+          select: "-password",
+        })
+        .populate({
+          path: "deliverypatner_id",
           select: "-password",
         })
         .populate("food_id");

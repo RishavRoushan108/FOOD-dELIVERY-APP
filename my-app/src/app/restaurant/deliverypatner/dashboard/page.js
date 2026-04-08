@@ -1,4 +1,5 @@
 "use client";
+import Showdetailid from "@/app/_component/Showdetailid";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -138,66 +139,7 @@ const Orderslist = () => {
                 ) : null}
               </div>
               {showdetailid && showdetailid == item?._id ? (
-                <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-                  <div className="bg-white w-[90%] md:w-125 rounded-2xl p-5 shadow-lg">
-                    {/* Header */}
-                    <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-semibold">
-                        {item?.restro_id?.name}
-                      </h2>
-                      <button
-                        onClick={() => setshowdetailid(null)}
-                        className="text-gray-500 text-lg"
-                      >
-                        ✕
-                      </button>
-                    </div>
-
-                    {/* Food Items */}
-                    <div className="space-y-3 max-h-60 overflow-y-auto">
-                      {item?.food_id.map((food) => (
-                        <div key={food._id} className="flex items-center gap-3">
-                          <img
-                            src={food.path}
-                            alt={food.foodItem}
-                            className="w-12 h-12 rounded-lg object-cover"
-                          />
-                          <div>
-                            <p className="font-medium">{food.foodItem}</p>
-                            <p className="text-sm text-gray-500">
-                              ₹{food.price}
-                            </p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Price Details */}
-                    <div className="mt-4 border-t pt-3 text-sm space-y-1">
-                      <div className="flex justify-between">
-                        <span>Food Cost</span>
-                        <span>₹{item?.price.totalfoodcost}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Delivery</span>
-                        <span>₹{item?.price.distancecost}</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span>Tax</span>
-                        <span>₹{item?.price.tax}</span>
-                      </div>
-                      <div className="flex justify-between font-semibold border-t pt-1">
-                        <span>Total</span>
-                        <span>₹{item?.price.total}</span>
-                      </div>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="mt-4 text-xs text-gray-500">
-                      Delivering to: {item?.userId?.city}
-                    </div>
-                  </div>
-                </div>
+                <Showdetailid item={item} setshowdetailid={setshowdetailid} />
               ) : null}
             </div>
           ))}

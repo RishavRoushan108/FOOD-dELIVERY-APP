@@ -14,6 +14,7 @@ const ordersSchema = mongoose.Schema(
     },
     deliverypatner_id: {
       type: mongoose.Schema.Types.ObjectId,
+      ref: "deliverypatner",
     },
     status: {
       type: String,
