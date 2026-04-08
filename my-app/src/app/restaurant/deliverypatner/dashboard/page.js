@@ -33,10 +33,14 @@ const Orderslist = () => {
       toast.error("failed to load detail");
     }
   };
-  const handlesubmit = async (_id) => {
+  const handlesubmit = async (_id, status) => {
     try {
-      if (text != "Picked Up") {
-        toast.error("Enter Picked Up");
+      if (status == "Order Confirmed" && text != "Accepted") {
+        toast.error("Enter Accepted");
+        return;
+      }
+      if (status == "Picked Up" && text != "Delivered") {
+        toast.error("Enter Delivered");
         return;
       }
       const payload = {
@@ -102,22 +106,29 @@ const Orderslist = () => {
                   </button>
                 </div>
 
-                {item.status == "Accepted" ? (
+                {item.status == "Order Confirmed" ||
+                item.status === "Picked Up" ? (
                   <div className=" pt-2 border-t border-gray-100 flex flex-col sm:flex-row items-start sm:items-center gap-3">
                     <span className="text-sm font-medium text-gray-700 whitespace-nowrap">
-                      Order Pickup:
+                      {item.status == "Order Confirmed"
+                        ? "Accepted"
+                        : "Delivered"}
                     </span>
                     <div className="relative flex w-full max-w-sm">
                       <input
                         type="text"
-                        placeholder={`Enter "Picked Up"`}
+                        placeholder={
+                          item.status == "Order Confirmed"
+                            ? "Enter Accepted"
+                            : "Enter Delivered"
+                        }
                         value={selectedorder == item._id ? text : ""}
                         onChange={(e) => settext(e.target.value)}
                         onClick={() => setinput(item._id)}
                         className="w-full px-3 py-2 text-sm border border-gray-200 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-orange-500 focus:border-orange-500"
                       />
                       <button
-                        onClick={() => handlesubmit(item._id)}
+                        onClick={() => handlesubmit(item._id, item.status)}
                         className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 text-sm font-semibold rounded-r-lg transition-colors"
                       >
                         Submit

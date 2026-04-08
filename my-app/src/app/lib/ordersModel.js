@@ -12,11 +12,14 @@ const ordersSchema = mongoose.Schema(
       required: true,
       ref: "restroOwner",
     },
+    deliverypatner_id: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
     status: {
       type: String,
       required: true,
       default: "Order Confirmed",
-      enum: ["Picked Up", "Order Confirmed", "Delivered"],
+      enum: ["Picked Up", "Order Confirmed", "Delivered", "Accepted"],
     },
     food_id: [
       {
