@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🍔 Food Delivery Web App (Next.js)
 
-## Getting Started
+- 🔗 Live Demo: https://food-d-elivery-app.vercel.app/restaurant
 
-First, run the development server:
+A full-stack multi-role food delivery platform built with Next.js, supporting real-time order flow between Users, Hotel Owners, and Delivery Partners.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 👥 Multi-Role System
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- User
+- Browse restaurants
+- Add food items to cart
+- Place orders
+- Track order status
+- View order history
+- Hotel Owner
+- Manage incoming orders
+- Update order status (picked up)
+- Delivery Partner
+- Accept orders (accept)
+- Deliver orders (delivered)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔐 Authentication
 
-## Learn More
+- JWT-based authentication
+- Secure login/signup for all roles
+- Protected routes
 
-To learn more about Next.js, take a look at the following resources:
+### 📍 Location & Distance Calculation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- User can set location via map
+- Distance calculated dynamically
+- Delivery charges added based on distance
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🛒 Cart & Ordering System
 
-## Deploy on Vercel
+- Add/remove items from cart
+- Dynamic billing system
+- Includes:
+- Food price
+- Delivery charge (based on distance)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 📦 Order Workflow (Real-Time Style)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- User places order
+- Delivery Partner types → accept
+- Hotel Owner updates → picked up
+- Delivery Partner updates → delivered
+
+### ➡️ Status is reflected to the user for order tracking
+
+### 📜 Order History
+
+- Users can view past orders
+- Includes order details and status
+
+## 🛠️ Tech Stack
+
+- Frontend: Next.js, React
+- Backend: Node.js (API routes / server)
+- Authentication: JWT
+- Database: (Add your DB here e.g. MongoDB)
+- Maps Integration: Location selection & distance calculation
+- Deployment: Vercel
+
+## 💡 Key Highlights
+
+- Real-world multi-role system
+- Practical order lifecycle handling
+- Distance-based billing logic
+- Clean separation of roles and responsibilities
+- Great for internship + hackathon showcase
+
+## 📌 Future Improvements
+
+- Real-time updates using WebSockets
+- Payment gateway integration
+- Push notifications
+- Admin dashboard
