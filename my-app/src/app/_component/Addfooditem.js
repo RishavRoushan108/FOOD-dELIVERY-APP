@@ -18,21 +18,18 @@ const Addfooditem = ({ setDashboard }) => {
       return;
     }
     try {
-      let response = await fetch(
-        "http://localhost:3000/api/restaurant/fooditem",
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            foodItem,
-            price,
-            path,
-            description,
-          }),
+      let response = await fetch("/api/restaurant/fooditem", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify({
+          foodItem,
+          price,
+          path,
+          description,
+        }),
+      });
       response = await response.json();
       if (response.success) {
         console.log(response.result);

@@ -8,10 +8,9 @@ const Displayfooditem = () => {
   }, []);
   const Loadfooditem = async () => {
     try {
-      let response = await fetch(
-        "http://localhost:3000/api/restaurant/fooditem/list",
-        { cache: "no-store" },
-      );
+      let response = await fetch("/api/restaurant/fooditem/list", {
+        cache: "no-store",
+      });
       response = await response.json();
       if (response.success) {
         setfooditem(response.result);
@@ -25,10 +24,9 @@ const Displayfooditem = () => {
   };
   async function deletefooditem(id) {
     try {
-      let response = await fetch(
-        "http://localhost:3000/api/restaurant/fooditem/list/" + id,
-        { method: "delete" },
-      );
+      let response = await fetch("/api/restaurant/fooditem/list/" + id, {
+        method: "delete",
+      });
       response = await response.json();
       if (response.success) {
         toast.success("deleted successfully");

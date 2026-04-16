@@ -15,7 +15,7 @@ const UserDashboard = () => {
   }, []);
   const loadcitylist = async () => {
     try {
-      let response = await fetch("http://localhost:3000/api/customer/location");
+      let response = await fetch("/api/customer/location");
       response = await response.json();
       if (response.success) {
         setcitylist(response.data);
@@ -27,7 +27,7 @@ const UserDashboard = () => {
   };
   const loadhotellist = async (params) => {
     try {
-      let url = "http://localhost:3000/api/customer/foodlist";
+      let url = "/api/customer/foodlist";
       if (params?.city) {
         url = url + "?city=" + params.city;
       } else if (params?.name) {

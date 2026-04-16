@@ -26,7 +26,7 @@ const Orderslist = () => {
   }
   const loadorderlist = async () => {
     try {
-      let res = await fetch("http://localhost:3000/api/orders");
+      let res = await fetch("/api/orders");
       res = await res.json();
       setorderlist(res.orderlist);
     } catch (err) {
@@ -44,7 +44,7 @@ const Orderslist = () => {
         _id,
         status: text,
       };
-      const res = await fetch("http://localhost:3000/api/orders", {
+      const res = await fetch("/api/orders", {
         method: "PATCH",
         body: JSON.stringify(payload),
         credentials: "include",

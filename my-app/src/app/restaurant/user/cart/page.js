@@ -21,9 +21,7 @@ const page = () => {
   );
   async function gethoteldetail() {
     const id = cartlist[0]?.restro_id;
-    let response = await fetch(
-      "http://localhost:3000/api/customer/foodlist/" + id,
-    );
+    let response = await fetch("/api/customer/foodlist/" + id);
     response = await response.json();
     setrestrodetail(response?.hoteldetail);
   }
@@ -39,7 +37,7 @@ const page = () => {
   const total = Number((totalfoodcost + distancecost + tax).toFixed(2));
   const fetchData = async () => {
     try {
-      let res = await fetch("http://localhost:3000/api/customer", {
+      let res = await fetch("/api/customer", {
         withCredentials: true,
       });
       res = await res.json();
@@ -70,7 +68,7 @@ const page = () => {
           total,
         },
       };
-      let res = await fetch("http://localhost:3000/api/orders", {
+      let res = await fetch("/api/orders", {
         method: "POST",
         body: JSON.stringify(payload),
         credentials: "include",

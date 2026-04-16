@@ -14,9 +14,7 @@ const page = ({ params }) => {
   }, []);
   const loadrestrodetail = async () => {
     const { id } = await params;
-    let response = await fetch(
-      "http://localhost:3000/api/customer/foodlist/" + id,
-    );
+    let response = await fetch("/api/customer/foodlist/" + id);
     response = await response.json();
     if (response.success) {
       setrestrodetail(response.hoteldetail);

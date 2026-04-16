@@ -52,7 +52,7 @@ const Signup = () => {
     try {
       let response;
       if (role === "hotelOwner") {
-        response = await fetch("http://localhost:3000/api/restaurant", {
+        response = await fetch("/api/restaurant", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const Signup = () => {
           credentials: "include",
         });
       } else if (role === "customer") {
-        response = await fetch("http://localhost:3000/api/customer", {
+        response = await fetch("/api/customer", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -70,7 +70,7 @@ const Signup = () => {
           credentials: "include",
         });
       } else {
-        response = await fetch("http://localhost:3000/api/deliverypatner", {
+        response = await fetch("/api/deliverypatner", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

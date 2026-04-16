@@ -8,7 +8,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        let res = await fetch("http://localhost:3000/api/customer", {
+        let res = await fetch("/api/customer", {
           withCredentials: true,
         });
         res = await res.json();

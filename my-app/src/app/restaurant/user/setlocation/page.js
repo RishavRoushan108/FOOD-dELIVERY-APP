@@ -28,16 +28,13 @@ export default function SetLocationPage() {
           lon: position.lng,
         },
       };
-      const response = await fetch(
-        "http://localhost:3000/api/customer/location",
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(obj),
+      const response = await fetch("/api/customer/location", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(obj),
+      });
       const data = await response.json();
       if (data.success) {
         toast.success("location updated successfully");

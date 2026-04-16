@@ -16,9 +16,7 @@ const Editfooditem = ({ id }) => {
 
   const Loadfooddetail = async () => {
     try {
-      let response = await fetch(
-        "http://localhost:3000/api/restaurant/fooditem/edit/" + id,
-      );
+      let response = await fetch("/api/restaurant/fooditem/edit/" + id);
       response = await response.json();
       if (response.success) {
         const { result } = response;
@@ -45,13 +43,10 @@ const Editfooditem = ({ id }) => {
       return;
     }
     try {
-      let response = await fetch(
-        "http://localhost:3000/api/restaurant/fooditem/edit/" + id,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ foodItem, price, path, description }),
-        },
-      );
+      let response = await fetch("/api/restaurant/fooditem/edit/" + id, {
+        method: "PATCH",
+        body: JSON.stringify({ foodItem, price, path, description }),
+      });
       response = await response.json();
       if (response.success) {
         toast.success("Edited successful");
